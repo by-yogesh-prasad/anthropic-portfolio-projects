@@ -1,0 +1,35 @@
+services:
+  backend:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      ANONYMIZED_TELEMETRY: "False"
+    shm_size: '2gb'
+    volumes:
+      # Persist ChromaDB vectors across container restarts
+      - chroma_data:/data/chroma_db
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      start_period: 60s
+      retries: 5
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        # Pass API key into Vite at build time (optional — omit if auth is off)
+        VITE_API_KEY: ${RAG_API_KEY:-}
+    restart: unless-stopped
+    ports:
+      - "3000:80"
+    depends_on:
+      backend:
+        condition: service_healthy
+
+volumes:
+  chroma_data:
