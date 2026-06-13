@@ -1,0 +1,43 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+*.egg
+.eggs/
+dist/
+build/
+*.whl
+.venv/
+venv/
+env/
+
+# Secrets
+.env
+.env.local
+.env.*.local
+
+# Node
+web/node_modules/
+web/.next/
+web/out/
+web/.turbo/
+
+# macOS
+.DS_Store
+
+# Editors
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Claude Code
+CLAUDE.md
+
+# GitMind local index (user data, not source)
+~/.gitmind/
+
+# Test / coverage
+.pytest_cache/
+.coverage
+htmlcov/

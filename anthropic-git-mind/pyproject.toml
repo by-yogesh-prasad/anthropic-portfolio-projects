@@ -1,0 +1,31 @@
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "gitmind"
+version = "0.1.0"
+description = "Ask natural language questions about your Git history"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "anthropic>=0.97.0",
+    "gitpython>=3.1.40",
+    "sqlite-vec>=0.1.6",
+    "sentence-transformers>=3.0.0,<4.0.0",
+    "transformers>=4.41.0,<5.0.0",
+    "click>=8.1.0",
+    "rich>=14.0.0",
+    "pydantic>=2.0.0",
+    "python-dotenv>=1.0.0",
+]
+
+[project.optional-dependencies]
+api = ["fastapi>=0.115.0", "uvicorn[standard]>=0.32.0"]
+
+[project.scripts]
+gitmind = "gitmind.cli:cli"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["gitmind*"]

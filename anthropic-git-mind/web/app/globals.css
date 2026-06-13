@@ -1,0 +1,270 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Light theme (default) ─────────────────────────────────────────────── */
+:root {
+  --background: #ffffff;
+  --surface: #f8f8f8;
+  --card: #ffffff;
+  --border: #e4e4e7;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --text-primary: #09090b;
+  --text-secondary: #52525b;
+  --text-muted: #a1a1aa;
+
+  /* Avatar / decorative indigo elements */
+  --avatar-bg: #ede9fe;
+  --avatar-border: #c4b5fd;
+
+  /* Commit SHA chips */
+  --sha-bg: #ede9fe;
+  --sha-text: #4338ca;
+  --sha-border: #c4b5fd;
+
+  /* Hover overlays */
+  --hover-bg: rgba(0, 0, 0, 0.04);
+
+  /* Scrollbar */
+  --scrollbar-thumb: #d4d4d8;
+  --scrollbar-thumb-hover: #a1a1aa;
+
+  /* Markdown prose */
+  --prose-text: #27272a;
+  --prose-heading: #09090b;
+  --prose-code-bg: #f1f5f9;
+  --prose-code-text: #4338ca;
+  --prose-code-border: #ddd6fe;
+  --prose-pre-bg: #f8fafc;
+  --prose-pre-border: #e4e4e7;
+  --prose-pre-text: #1e293b;
+  --prose-blockquote: #71717a;
+  --prose-link: #4338ca;
+  --prose-link-hover: #6366f1;
+  --prose-td-border: #e4e4e7;
+  --prose-th-bg: #f4f4f5;
+  --prose-th-text: #09090b;
+  --prose-tr-even: #f9f9f9;
+  --prose-hr: #e4e4e7;
+}
+
+/* ── Dark theme ─────────────────────────────────────────────────────────── */
+.dark {
+  --background: #0a0a0a;
+  --surface: #111111;
+  --card: #1a1a1a;
+  --border: #262626;
+  --accent: #6366f1;
+  --accent-hover: #4f46e5;
+  --text-primary: #f4f4f5;
+  --text-secondary: #a1a1aa;
+  --text-muted: #71717a;
+
+  --avatar-bg: #1a1a2e;
+  --avatar-border: #312e81;
+
+  --sha-bg: #1e1b4b;
+  --sha-text: #a5b4fc;
+  --sha-border: #312e81;
+
+  --hover-bg: rgba(255, 255, 255, 0.05);
+
+  --scrollbar-thumb: #3f3f46;
+  --scrollbar-thumb-hover: #52525b;
+
+  --prose-text: #d4d4d8;
+  --prose-heading: #f4f4f5;
+  --prose-code-bg: #1e1e2e;
+  --prose-code-text: #c4b5fd;
+  --prose-code-border: #312e81;
+  --prose-pre-bg: #0f0f1a;
+  --prose-pre-border: #262626;
+  --prose-pre-text: #e2e8f0;
+  --prose-blockquote: #a1a1aa;
+  --prose-link: #818cf8;
+  --prose-link-hover: #a5b4fc;
+  --prose-td-border: #262626;
+  --prose-th-bg: #1a1a1a;
+  --prose-th-text: #f4f4f5;
+  --prose-tr-even: #111111;
+  --prose-hr: #262626;
+}
+
+/* ── Base ───────────────────────────────────────────────────────────────── */
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  background-color: var(--background);
+  color: var(--text-primary);
+  transition: background-color 0.15s ease, color 0.15s ease;
+}
+
+/* ── Scrollbar ──────────────────────────────────────────────────────────── */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--scrollbar-thumb) transparent;
+}
+
+*::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-thumb);
+  border-radius: 9999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--scrollbar-thumb-hover);
+}
+
+/* ── Selection ──────────────────────────────────────────────────────────── */
+::selection {
+  background-color: rgba(99, 102, 241, 0.2);
+  color: var(--text-primary);
+}
+
+/* ── Animations ─────────────────────────────────────────────────────────── */
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+.cursor-blink {
+  animation: blink 1s step-end infinite;
+  display: inline-block;
+  color: var(--accent);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  animation: fadeIn 0.2s ease-out forwards;
+}
+
+@keyframes slideIn {
+  from { transform: translateX(-100%); }
+  to   { transform: translateX(0); }
+}
+
+.animate-slide-in {
+  animation: slideIn 0.25s ease-out forwards;
+}
+
+/* ── Markdown prose (theme-aware via CSS vars) ──────────────────────────── */
+.prose-content {
+  color: var(--prose-text);
+}
+
+.prose-content h1,
+.prose-content h2,
+.prose-content h3,
+.prose-content h4 {
+  color: var(--prose-heading);
+  font-weight: 600;
+  margin-top: 1rem;
+  margin-bottom: 0.5rem;
+}
+
+.prose-content code {
+  background-color: var(--prose-code-bg);
+  color: var(--prose-code-text);
+  border-radius: 4px;
+  padding: 2px 6px;
+  font-size: 0.875em;
+  border: 1px solid var(--prose-code-border);
+}
+
+.prose-content pre {
+  background-color: var(--prose-pre-bg);
+  border: 1px solid var(--prose-pre-border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+}
+
+.prose-content pre code {
+  background: none;
+  border: none;
+  padding: 0;
+  color: var(--prose-pre-text);
+}
+
+.prose-content blockquote {
+  border-left: 3px solid var(--accent);
+  padding-left: 1rem;
+  color: var(--prose-blockquote);
+  font-style: italic;
+}
+
+.prose-content a {
+  color: var(--prose-link);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in srgb, var(--prose-link) 40%, transparent);
+}
+
+.prose-content a:hover {
+  color: var(--prose-link-hover);
+}
+
+.prose-content ul,
+.prose-content ol {
+  padding-left: 1.5rem;
+}
+
+.prose-content li {
+  margin-bottom: 0.25rem;
+}
+
+.prose-content p {
+  margin-bottom: 0.75rem;
+  line-height: 1.7;
+}
+
+.prose-content strong {
+  color: var(--prose-heading);
+  font-weight: 600;
+}
+
+.prose-content table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.prose-content th,
+.prose-content td {
+  border: 1px solid var(--prose-td-border);
+  padding: 0.5rem 0.75rem;
+}
+
+.prose-content th {
+  background-color: var(--prose-th-bg);
+  color: var(--prose-th-text);
+  font-weight: 600;
+}
+
+.prose-content tr:nth-child(even) td {
+  background-color: var(--prose-tr-even);
+}
+
+.prose-content hr {
+  border-color: var(--prose-hr);
+}
+
+/* Keep old class name as alias so nothing breaks */
+.prose-dark {
+  composes: prose-content;
+}
